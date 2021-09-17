@@ -31,9 +31,9 @@ public class JdbcBigintWriter extends JdbcColumnWriter {
 
   @Override
   public void load(ResultSet results) throws SQLException {
-    boolean b = results.wasNull();
-    if (! results.wasNull()) {
-      long value = results.getLong(columnIndex);
+    // JDBC reports nullability only after getting the column value.
+    long value = results.getLong(columnIndex);
+    if (!results.wasNull()) {
       columnWriter.setLong(value);
     }
   }
